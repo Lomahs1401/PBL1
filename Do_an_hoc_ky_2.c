@@ -35,7 +35,7 @@ typedef struct InfoFoodCustomer {
 typedef struct Customer {
 	// luu thoi gian goi mon
 	char* time;
-	//  dem so lan order mon an
+	// dem so lan order mon an
 	int countFood;
 	// con tro struct luu thong tin moi lan goi mon
 	Food *listInforFood;
@@ -197,9 +197,14 @@ void logout(Cus *listCustomer, int listCus, long totalDay) {
 	}
 	printf("| Tong doanh thu trong ngay: %8ldVND %36s\n", totalDay, "|");
 	printf("-----------------------------------------------------------------------------\n");
-	fprintf(fptr, "Tong doanh thu trong ngay: %ldVND", totalDay);
+	char* day = (char*)malloc(30* sizeof(char));
+	time_t rawtime;
+	time(&rawtime);
+	strftime(day, 30, "%d/%m/%Y", localtime(&rawtime));
+	fprintf(fptr, "Tong doanh thu trong ngay %s: %ldVND", day, totalDay);
 	fprintf(fptr, "\n");
 	fclose(fptr);
+	free(day);
 }
 
 //Ham tinh tien mon an cua khach hang
@@ -459,7 +464,7 @@ Cus addCustomer(){
 	//cap phat 30 o nho cho con tro saveTime
 	char* saveTime = (char*)malloc(30 * sizeof(char));	
 	//Ham displayTime() tra ve dia chi cua con tro saveTime va gan vao con tro time
-	customer.time = displayTime(saveTime);
+	customer.time = displayTime(saveTime); 
 	return customer;
 }
 
